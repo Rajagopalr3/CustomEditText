@@ -10,7 +10,7 @@ A Collection of features are implemented in single editext view. By adding one l
     
 the above features are done through xml file.    
 
-![Screenshot](screenshot1.png)
+![Screenshot](screenshot.png)
 
 # Usage
 To add CustomEditText into your project, import .aar as module or add through to gradle. 
@@ -84,7 +84,7 @@ Note : use "implementation" instead of "compile" in dependencies section.
  
  ```
  
-Copyright 2017 Rajagoapal
+Copyright 2017 Rajagopal
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
