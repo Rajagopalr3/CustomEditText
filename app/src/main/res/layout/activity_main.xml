@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="visible">
+
+
+        <com.libIZO.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="First Name"
+            android:inputType="text"
+            android:text="Raja"
+            app:libIZO_clearIconTint="#8f1f15"
+            app:libIZO_setBorderColor="#8f1f15"
+            app:libIZO_setBorderView="true"
+            app:libIZO_setClearIconVisible="true"
+            app:libIZO_setCornerRadius="4dp"
+            app:libIZO_setStrokeWidth="2dp" />
+
+        <com.libIZO.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Email ID"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="5dp"
+            android:text="abc@gmail.com"
+            app:libIZO_clearIconTint="#17741a"
+            app:libIZO_setClearIconVisible="true" />
+
+        <com.libIZO.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Email ID"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="5dp"
+            android:text="abc@gmail.com"
+            app:libIZO_clearIconTint="#ff1226"
+            app:libIZO_setClearIconVisible="true" />
+
+        <com.libIZO.CustomEditText
+            android:id="@+id/t3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Select Date"
+            android:inputType="datetime"
+            android:paddingLeft="5dp"
+            android:text=""
+            app:libIZO_setBorderColor="@color/colorAccent"
+            app:libIZO_setBorderView="true"
+            app:libIZO_setCornerRadius="4dp"
+            app:libIZO_setStrokeWidth="2dp" />
+
+
+        <com.libIZO.CustomEditText
+            android:id="@+id/t4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Type something..."
+            android:inputType="numberPassword"
+            android:paddingLeft="5dp"
+            android:text="Raja"
+            app:libIZO_setBorderView="true"
+            app:libIZO_setCornerRadius="4dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
