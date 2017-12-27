@@ -33,7 +33,7 @@ Note : use "implementation" instead of "compile" in dependencies section.
 ```
 # Import as Module
 
-[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/rajgopalr3/customizededittext-1.0.0.aar
+[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customizededittext-1.0.0.aar
 
 # XML
 
