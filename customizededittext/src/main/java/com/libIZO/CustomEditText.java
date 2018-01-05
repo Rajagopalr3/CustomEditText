@@ -1,4 +1,4 @@
-package com.libIZO;
+package com.libizo;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -34,23 +33,18 @@ import java.lang.reflect.Field;
 @SuppressLint("AppCompatCustomView")
 public class CustomEditText extends android.widget.EditText {
 
-    private boolean isClearIconVisible = false;
-    private int mBackgroundColor;
-    private int padding, paddingLeft, paddingTop, paddingRight, paddingBottom;
-    private final int DEFAULT_COLOR = Color.parseColor("#B6B6B6");
     private final static int TYPE_TEXT_VARIATION_PASSWORD = 129;
     private final static int TYPE_NUMBER_VARIATION_PASSWORD = 18;
     private final static int DEFAULT_PADDING = 15;
+    private final int DEFAULT_COLOR = Color.parseColor("#B6B6B6");
+    private boolean isClearIconVisible = false;
+    private int mBackgroundColor;
+    private int padding, paddingLeft, paddingTop, paddingRight, paddingBottom;
     private String fontName;
     private float mStrokeWidth = 1;
     private float mCornerRadius;
     private Drawable imgCloseButton = ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_close_clear_cancel);
-    @DrawableRes
-    private int visibilityIndicatorShow = R.drawable.ic_visibility_off;
-    @DrawableRes
-    private int visibilityIndicatorHide = R.drawable.ic_visibility_on;
     private Drawable drawableEnd;
-    private boolean leftToRight = true;
     private boolean isPassword = false;
     private boolean isShowingPassword = false;
     private int clearIconTint;
@@ -93,6 +87,8 @@ public class CustomEditText extends android.widget.EditText {
             if (isBorderView) {
                 setBackGroundOfLayout(getShapeBackground(mNormalColor));
                 setCursorColor(mNormalColor);
+            } else {
+                padding(false);
             }
             if (getInputType() == TYPE_TEXT_VARIATION_PASSWORD || getInputType() == TYPE_NUMBER_VARIATION_PASSWORD) {
                 isPassword = true;
@@ -118,21 +114,12 @@ public class CustomEditText extends android.widget.EditText {
                         return false;
                     if (event.getAction() != MotionEvent.ACTION_UP)
                         return false;
-                    if (event.getAction() == MotionEvent.ACTION_UP && drawableEnd != null) {
-                        Rect bounds = drawableEnd.getBounds();
-                        int x = (int) event.getX();
-                        //take into account the padding and additionalTouchTargetSize
-                        int drawableWidthWithPadding = bounds.width() + (leftToRight ? getPaddingRight() : getPaddingLeft()) + 40;
-                        //check if the touch is within bounds of drawableEnd icon
-                        if ((leftToRight && (x >= (CustomEditText.this.getRight() - (drawableWidthWithPadding)))) ||
-                                (!leftToRight && (x <= (CustomEditText.this.getLeft() + (drawableWidthWithPadding))))) {
-                            if (isPassword) {
-                                togglePasswordVisibility();
-                                event.setAction(MotionEvent.ACTION_CANCEL);
-                            }
+                    if (isPassword) {
+                        if (event.getX() > editText.getWidth() - editText.getPaddingRight() - drawableEnd.getIntrinsicWidth()) {
+                            togglePasswordVisibility();
+                            event.setAction(MotionEvent.ACTION_CANCEL);
                         }
-                    }
-                    if (!isPassword && isClearIconVisible) {
+                    } else if (isClearIconVisible) {
                         if (event.getX() > editText.getWidth() - editText.getPaddingRight() - imgCloseButton.getIntrinsicWidth()) {
                             editText.setText("");
                             CustomEditText.this.handleClearButton();
@@ -194,10 +181,23 @@ public class CustomEditText extends android.widget.EditText {
         } else {
             setBackgroundDrawable(shape);
         }
-        if (padding != -1) {
-            super.setPadding(padding + 5, padding, padding, padding);
+        padding(true);
+    }
+
+    private void padding(boolean isRound) {
+        int extraPadding;
+        int extrapad;
+        if (isRound) {
+            extraPadding = 5;
+            extrapad = 0;
         } else {
-            super.setPadding(paddingLeft + 5, paddingTop, paddingRight, paddingBottom);
+            extrapad = 5;
+            extraPadding = 0;
+        }
+        if (padding != -1) {
+            super.setPadding(padding + extraPadding, padding, padding, padding + extrapad);
+        } else {
+            super.setPadding(paddingLeft + extraPadding, paddingTop, paddingRight, paddingBottom + extrapad);
         }
     }
 
@@ -255,28 +255,15 @@ public class CustomEditText extends android.widget.EditText {
         }
     }
 
-    @Override
-    public void setCompoundDrawables(Drawable left, Drawable top,
-                                     Drawable right, Drawable bottom) {
-
-        //keep a reference to the right drawable so later on touch we can check if touch is on the drawable
-        if (leftToRight && right != null) {
-            drawableEnd = right;
-        } else if (!leftToRight && left != null) {
-            drawableEnd = left;
-        }
-
-        super.setCompoundDrawables(left, top, right, bottom);
-    }
-
     private void showPasswordVisibilityIndicator(boolean show) {
         if (show) {
             Drawable original = isShowingPassword ?
-                    ContextCompat.getDrawable(getContext(), visibilityIndicatorHide) :
-                    ContextCompat.getDrawable(getContext(), visibilityIndicatorShow);
+                    ContextCompat.getDrawable(getContext(), R.drawable.ic_visibility_on) :
+                    ContextCompat.getDrawable(getContext(), R.drawable.ic_visibility_off);
             original.mutate();
             DrawableCompat.setTint(original, hideShowIconTint);
             original.setBounds(0, 0, 43, 43);
+            drawableEnd = original;
             this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], original, this.getCompoundDrawables()[3]);
         } else {
             this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], null, this.getCompoundDrawables()[3]);
