@@ -23,7 +23,7 @@ Add it in your app build.gradle at the end of repositories if not present in gra
 # Gradle Depedencies :
 
 dependencies {
-    compile 'com.libizo:customedittext:1.0.1'
+    compile 'com.libizo:customedittext:1.0.2'
 }
 
 Note : use "implementation" instead of "compile" in dependencies section.
@@ -33,7 +33,7 @@ Note : use "implementation" instead of "compile" in dependencies section.
 ```
 # Import as Module
 
-[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.1.aar
+[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.2.aar
 
 # XML
 
