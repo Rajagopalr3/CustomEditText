@@ -10,9 +10,7 @@ A Collection of features are implemented in single editext view. By adding one l
     
 the above features are done through xml file.    
 
-<a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Methods count-84-e91e63.svg"/></a>
-
-<a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Size-34 KB-e91e63.svg"/></a>
+<a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Methods count-84-e91e63.svg"/></a>  <a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Size-34 KB-e91e63.svg"/></a>
 
 ![Screenshot](screenshot.png)
 
