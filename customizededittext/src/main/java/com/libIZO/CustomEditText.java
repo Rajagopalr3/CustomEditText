@@ -1,4 +1,4 @@
-package com.libizo;
+package com.libIZO;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
