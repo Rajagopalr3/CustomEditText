@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CustomEditText</string>
+    <string name="robotoBold">Roboto-Bold.ttf</string>
+    <string name="robotoRegular">Roboto-Regular.ttf</string>
 </resources>
