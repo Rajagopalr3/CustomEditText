@@ -25,11 +25,8 @@ Add it in your app build.gradle at the end of repositories if not present in gra
 # Gradle Depedencies :
 
 dependencies {
-    compile 'com.libizo:customedittext:1.0.2'
+    implementation 'com.libizo:customedittext:1.0.2'
 }
-
-Note : use "implementation" instead of "compile" in dependencies section.
-       "compile" is deprecated in android studio 3+ versions. 
 
 
 ```
