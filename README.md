@@ -25,7 +25,7 @@ Add it in your app build.gradle at the end of repositories if not present in gra
 # Gradle Depedencies :
 
 dependencies {
-    implementation 'com.libizo:customedittext:1.0.2'
+    implementation 'com.libizo:customedittext:1.0.3'
 }
 
 
