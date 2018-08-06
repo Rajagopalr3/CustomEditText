@@ -163,12 +163,9 @@ public class CustomEditText extends android.widget.EditText {
     private void setFont() {
         if (fontName != null) {
             try {
-                setTypeface(Typeface.createFromAsset(getContext().getAssets(), fontName));
+                setTypeface(Typefaces.get(getContext(), fontName));
             } catch (Exception ignored) {
-                setTypeface(Typeface.DEFAULT);
             }
-        } else {
-            setTypeface(Typeface.DEFAULT);
         }
     }
 
@@ -295,5 +292,10 @@ public class CustomEditText extends android.widget.EditText {
         // Toggle flag and show indicator
         isShowingPassword = !isShowingPassword;
         showPasswordVisibilityIndicator(true);
+    }
+
+    public void setFontName(String fontName) {
+        this.fontName = fontName;
+        setFont();
     }
 }
