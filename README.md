@@ -16,6 +16,8 @@ the above features are done through xml file.
 
 ![Screenshot](screenshot.png)
 
+<a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_greyscale.png'></a><a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_greyscale.png'></a>
+
 # Usage
 To add CustomEditText into your project, import .aar as module or add through to gradle. 
 
