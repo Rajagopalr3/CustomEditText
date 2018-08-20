@@ -14,9 +14,10 @@ the above features are done through xml file.
 
 <a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext/_latestVersion'><img src='https://api.bintray.com/packages/rajagopalr3/CustomEditText/customedittext/images/download.svg'></a>
 
+<a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+
 ![Screenshot](screenshot.png)
 
-<a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_greyscale.png'></a><a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_greyscale.png'></a>
 
 # Usage
 To add CustomEditText into your project, import .aar as module or add through to gradle. 
