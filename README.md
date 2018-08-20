@@ -12,6 +12,8 @@ the above features are done through xml file.
 
 <a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Methods count-84-e91e63.svg"/></a>  <a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Size-34 KB-e91e63.svg"/></a>
 
+<a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext/_latestVersion'><img src='https://api.bintray.com/packages/rajagopalr3/CustomEditText/customedittext/images/download.svg'></a>
+
 ![Screenshot](screenshot.png)
 
 # Usage
