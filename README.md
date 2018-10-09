@@ -1,5 +1,5 @@
 # CustomEditText
-A Collection of features are implemented in single editext view. By adding one line code in xml to access features like rounded corner, clear icon visibility when typing, password visibility when inputtype is password.
+A Collection of features are implemented in single edittext view. By adding one line code in xml, able to access features like rounded corner, clear icon visibility when typing, password visibility when inputtype is password.
 
 # Features
 1.EditText shape  -> rounded corner with radius and changing BG color, Border color.     
