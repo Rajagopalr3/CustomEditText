@@ -22,9 +22,6 @@ the above features are done through xml file.
 # Usage
 To add CustomEditText into your project, import .aar as module or add through to gradle. 
 
-
-Add it in your app build.gradle at the end of repositories if not present in gradle file:
-
 ```
 
 # Gradle Depedencies :
