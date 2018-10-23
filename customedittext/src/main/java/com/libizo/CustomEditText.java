@@ -6,13 +6,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
@@ -50,6 +47,8 @@ public class CustomEditText extends android.widget.EditText {
     private int clearIconTint;
     private int hideShowIconTint;
     private boolean isBorderView = false;
+    private float mOriginalLeftPadding = -1;
+    private String mPrexix;
 
     public CustomEditText(Context context) {
         super(context);
@@ -82,6 +81,7 @@ public class CustomEditText extends android.widget.EditText {
             hideShowIconTint = a.getColor(R.styleable.CustomEditText_libIZO_hideShowPasswordIconTint, DEFAULT_COLOR);
             clearIconTint = a.getColor(R.styleable.CustomEditText_libIZO_clearIconTint, DEFAULT_COLOR);
             this.fontName = a.getString(R.styleable.CustomEditText_libIZO_setFont);
+            mPrexix = a.getString(R.styleable.CustomEditText_libIZO_prefix);
             // set corner radius
             mCornerRadius = a.getDimension(R.styleable.CustomEditText_libIZO_setCornerRadius, 1);
             if (isBorderView) {
@@ -98,6 +98,9 @@ public class CustomEditText extends android.widget.EditText {
             }
             if (!isPassword && isClearIconVisible) {
                 handleClearButton();
+            }
+            if(mPrexix != null){
+                calculatePrefix();
             }
             if (isPassword)
                 if (!TextUtils.isEmpty(getText())) {
@@ -217,6 +220,11 @@ public class CustomEditText extends android.widget.EditText {
     @SuppressLint("DrawAllocation")
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        if(mPrexix != null){
+            String prefix = mPrexix;
+            canvas.drawText(prefix, mOriginalLeftPadding,getLineBounds(0, null), getPaint());
+        }
     }
 
 
@@ -297,5 +305,21 @@ public class CustomEditText extends android.widget.EditText {
     public void setFontName(String fontName) {
         this.fontName = fontName;
         setFont();
+    }
+
+    private void calculatePrefix() {
+        if (mOriginalLeftPadding == -1) {
+            String prefix = mPrexix;
+            float[] widths = new float[prefix.length()];
+            getPaint().getTextWidths(prefix, widths);
+            float textWidth = 0;
+            for (float w : widths) {
+                textWidth += w;
+            }
+            mOriginalLeftPadding = getCompoundPaddingLeft();
+            setPadding((int) (textWidth + mOriginalLeftPadding),
+                    getPaddingRight(), getPaddingTop(),
+                    getPaddingBottom());
+        }
     }
 }

@@ -104,6 +104,16 @@
             app:libIZO_setBorderView="true"
             app:libIZO_setCornerRadius="4dp" />
 
+        <com.libizo.CustomEditText
+            android:id="@+id/t6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="With Prefix"
+            android:inputType="text"
+            android:text="85624503400"
+            app:libIZO_prefix="+62 " />
+
     </LinearLayout>
 
 </RelativeLayout>
