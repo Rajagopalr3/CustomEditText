@@ -7,6 +7,7 @@ A Collection of features are implemented in single edittext view. By adding one 
 3.Font change via xml     
 4.Password visibility icon when inputtype in password mode.      
 5.Able to change Tint color of icons.  
+6.Able to add country code in prefix (+91)
     
 the above features are done through xml file.    
 
