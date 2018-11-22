@@ -1,5 +1,5 @@
 # CustomEditText
-A Collection of features are implemented in single editext view. By adding one line code in xml to access features like rounded corner, clear icon visibility when typing, password visibility when inputtype is password.
+A Collection of features are implemented in single edittext view. By adding one line code in xml, able to access features like rounded corner, clear icon visibility when typing, password visibility when inputtype is password.
 
 # Features
 1.EditText shape  -> rounded corner with radius and changing BG color, Border color.     
@@ -12,20 +12,22 @@ the above features are done through xml file.
 
 <a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Methods count-84-e91e63.svg"/></a>  <a href="http://www.methodscount.com/?lib=com.libizo%3Acustomedittext%3A1.0.2"><img src="https://img.shields.io/badge/Size-34 KB-e91e63.svg"/></a>
 
+<a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext/_latestVersion'><img src='https://api.bintray.com/packages/rajagopalr3/CustomEditText/customedittext/images/download.svg'></a>
+
+<a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+
 ![Screenshot](screenshot.png)
+
 
 # Usage
 To add CustomEditText into your project, import .aar as module or add through to gradle. 
-
-
-Add it in your app build.gradle at the end of repositories if not present in gradle file:
 
 ```
 
 # Gradle Depedencies :
 
 dependencies {
-    implementation 'com.libizo:customedittext:1.0.2'
+    implementation 'com.libizo:customedittext:1.0.3'
 }
 
 
