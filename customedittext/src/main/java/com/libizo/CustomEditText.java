@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -23,6 +24,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /*
  * Created by ${Raja} on 25-Dec-17.
@@ -33,22 +35,16 @@ public class CustomEditText extends AppCompatEditText {
     private final static int TYPE_TEXT_VARIATION_PASSWORD = 129;
     private final static int TYPE_NUMBER_VARIATION_PASSWORD = 18;
     private final static int DEFAULT_PADDING = 15;
-    private final int DEFAULT_COLOR = Color.parseColor("#B6B6B6");
-    private boolean isClearIconVisible = false;
-    private int mBackgroundColor;
+    private final int DEFAULT_COLOR = Color.parseColor("#808080");
+    private int mBackgroundColor, clearIconTint, hideShowIconTint, prefixTextColor;
     private int padding, paddingLeft, paddingTop, paddingRight, paddingBottom;
-    private String fontName;
-    private float mStrokeWidth = 1;
-    private float mCornerRadius;
-    private Drawable imgCloseButton;
-    private Drawable drawableEnd;
+    private float mCornerRadius, mStrokeWidth = 1;
+    private float mOriginalLeftPadding = -1;
+    private boolean isClearIconVisible;
     private boolean isPassword = false;
     private boolean isShowingPassword = false;
-    private int clearIconTint;
-    private int hideShowIconTint;
-    private boolean isBorderView = false;
-    private float mOriginalLeftPadding = -1;
-    private String mPrexix;
+    private Drawable imgCloseButton, drawableEnd;
+    private String fontName, mPrefix;
 
     public CustomEditText(Context context) {
         super(context);
@@ -66,6 +62,7 @@ public class CustomEditText extends AppCompatEditText {
     }
 
     public void init(Context context, AttributeSet attrs) {
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText);
         imgCloseButton = ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_close_clear_cancel);
         padding = a.getDimensionPixelSize(R.styleable.CustomEditText_android_padding, -1);
@@ -73,17 +70,18 @@ public class CustomEditText extends AppCompatEditText {
         paddingTop = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingTop, DEFAULT_PADDING);
         paddingRight = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingRight, DEFAULT_PADDING);
         paddingBottom = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingBottom, DEFAULT_PADDING);
-        isClearIconVisible = a.getBoolean(R.styleable.CustomEditText_libIZO_setClearIconVisible, isClearIconVisible);
-        isBorderView = a.getBoolean(R.styleable.CustomEditText_libIZO_setBorderView, isBorderView);
+        isClearIconVisible = a.getBoolean(R.styleable.CustomEditText_libIZO_setClearIconVisible, false);
+        boolean isBorderView = a.getBoolean(R.styleable.CustomEditText_libIZO_setBorderView, false);
         int mNormalColor = a.getColor(R.styleable.CustomEditText_libIZO_setBorderColor, DEFAULT_COLOR);
         mBackgroundColor = a.getColor(R.styleable.CustomEditText_libIZO_setBackgroundColor, Color.TRANSPARENT);
         mStrokeWidth = a.getDimension(R.styleable.CustomEditText_libIZO_setStrokeWidth, mStrokeWidth);
         hideShowIconTint = a.getColor(R.styleable.CustomEditText_libIZO_hideShowPasswordIconTint, DEFAULT_COLOR);
         clearIconTint = a.getColor(R.styleable.CustomEditText_libIZO_clearIconTint, DEFAULT_COLOR);
         this.fontName = a.getString(R.styleable.CustomEditText_libIZO_setFont);
-        mPrexix = a.getString(R.styleable.CustomEditText_libIZO_prefix);
-        // set corner radius
+        mPrefix = a.getString(R.styleable.CustomEditText_libIZO_setPrefix);
+        prefixTextColor = a.getColor(R.styleable.CustomEditText_libIZO_setPrefixTextColor, 0);
         mCornerRadius = a.getDimension(R.styleable.CustomEditText_libIZO_setCornerRadius, 1);
+
         if (isBorderView) {
             setBackGroundOfLayout(getShapeBackground(mNormalColor));
             setCursorColor(mNormalColor);
@@ -100,7 +98,7 @@ public class CustomEditText extends AppCompatEditText {
             handleClearButton();
         }
 
-        if (mPrexix != null) {
+        if (mPrefix != null && mPrefix.length() > 0) {
             calculatePrefix();
         }
 
@@ -138,7 +136,6 @@ public class CustomEditText extends AppCompatEditText {
         setFont();
         a.recycle();
     }
-
 
     public void setCursorColor(@ColorInt int color) {
         try {
@@ -223,18 +220,26 @@ public class CustomEditText extends AppCompatEditText {
     @SuppressLint("DrawAllocation")
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mPrexix != null) {
-            String prefix = mPrexix;
-            canvas.drawText(prefix, mOriginalLeftPadding, getLineBounds(0, null), getPaint());
+        if (mPrefix != null) {
+            String prefix = mPrefix;
+            Paint myPaint = null;
+            if (prefixTextColor != 0) {
+                myPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+                myPaint.setColor(prefixTextColor);
+                myPaint.setTextAlign(Paint.Align.LEFT);
+                myPaint.setTextSize(getTextSize());
+            }
+            canvas.drawText(prefix, mOriginalLeftPadding, getLineBounds(0, null), myPaint == null ? getPaint() : myPaint);
         }
     }
 
 
+    @SuppressLint("NewApi")
     private void handleClearButton() {
         if (isClearIconVisible) {
             DrawableCompat.setTint(imgCloseButton, clearIconTint);
             imgCloseButton.setBounds(0, 0, 43, 43);
-            if (this.getText().length() == 0) {
+            if (Objects.requireNonNull(this.getText()).length() == 0) {
                 this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], null, this.getCompoundDrawables()[3]);
             } else {
                 this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], imgCloseButton, this.getCompoundDrawables()[3]);
@@ -267,11 +272,13 @@ public class CustomEditText extends AppCompatEditText {
             Drawable original = isShowingPassword ?
                     ContextCompat.getDrawable(getContext(), R.drawable.ic_visibility_on) :
                     ContextCompat.getDrawable(getContext(), R.drawable.ic_visibility_off);
-            original.mutate();
-            DrawableCompat.setTint(original, hideShowIconTint);
-            original.setBounds(0, 0, 43, 43);
-            drawableEnd = original;
-            this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], original, this.getCompoundDrawables()[3]);
+            if (original != null) {
+                original.mutate();
+                DrawableCompat.setTint(original, hideShowIconTint);
+                original.setBounds(0, 0, 43, 43);
+                drawableEnd = original;
+                this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], original, this.getCompoundDrawables()[3]);
+            }
         } else {
             this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], null, this.getCompoundDrawables()[3]);
         }
@@ -315,17 +322,18 @@ public class CustomEditText extends AppCompatEditText {
 
 
     public void setPrefix(String prefix) {
-        this.mPrexix = prefix;
+        this.mPrefix = prefix;
         calculatePrefix();
+        invalidate();
     }
 
     public String getPrefix() {
-        return this.mPrexix;
+        return this.mPrefix;
     }
 
     private void calculatePrefix() {
         if (mOriginalLeftPadding == -1) {
-            String prefix = mPrexix;
+            String prefix = mPrefix;
             float[] widths = new float[prefix.length()];
             getPaint().getTextWidths(prefix, widths);
             float textWidth = 0;
@@ -339,5 +347,8 @@ public class CustomEditText extends AppCompatEditText {
         }
     }
 
-
+    private void setPrefixTextColor(int prefixTextColor) {
+        this.prefixTextColor = prefixTextColor;
+        invalidate();
+    }
 }
