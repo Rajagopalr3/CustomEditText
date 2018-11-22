@@ -17,6 +17,7 @@
         <attr name="libIZO_setClearIconVisible" format="boolean" />
         <attr name="libIZO_clearIconTint" format="color" />
         <attr name="libIZO_hideShowPasswordIconTint" format="color" />
+        <attr name="libIZO_prefix" format="string" />
     </declare-styleable>
 
 </resources>

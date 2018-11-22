@@ -6,15 +6,13 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
@@ -30,8 +28,7 @@ import java.lang.reflect.Field;
  * Created by ${Raja} on 25-Dec-17.
  */
 
-@SuppressLint("AppCompatCustomView")
-public class CustomEditText extends android.widget.EditText {
+public class CustomEditText extends AppCompatEditText {
 
     private final static int TYPE_TEXT_VARIATION_PASSWORD = 129;
     private final static int TYPE_NUMBER_VARIATION_PASSWORD = 18;
@@ -43,13 +40,15 @@ public class CustomEditText extends android.widget.EditText {
     private String fontName;
     private float mStrokeWidth = 1;
     private float mCornerRadius;
-    private Drawable imgCloseButton = ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_close_clear_cancel);
+    private Drawable imgCloseButton;
     private Drawable drawableEnd;
     private boolean isPassword = false;
     private boolean isShowingPassword = false;
     private int clearIconTint;
     private int hideShowIconTint;
     private boolean isBorderView = false;
+    private float mOriginalLeftPadding = -1;
+    private String mPrexix;
 
     public CustomEditText(Context context) {
         super(context);
@@ -67,70 +66,77 @@ public class CustomEditText extends android.widget.EditText {
     }
 
     public void init(Context context, AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText);
-            padding = a.getDimensionPixelSize(R.styleable.CustomEditText_android_padding, -1);
-            paddingLeft = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingLeft, DEFAULT_PADDING);
-            paddingTop = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingTop, DEFAULT_PADDING);
-            paddingRight = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingRight, DEFAULT_PADDING);
-            paddingBottom = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingBottom, DEFAULT_PADDING);
-            isClearIconVisible = a.getBoolean(R.styleable.CustomEditText_libIZO_setClearIconVisible, isClearIconVisible);
-            isBorderView = a.getBoolean(R.styleable.CustomEditText_libIZO_setBorderView, isBorderView);
-            int mNormalColor = a.getColor(R.styleable.CustomEditText_libIZO_setBorderColor, DEFAULT_COLOR);
-            mBackgroundColor = a.getColor(R.styleable.CustomEditText_libIZO_setBackgroundColor, Color.TRANSPARENT);
-            mStrokeWidth = a.getDimension(R.styleable.CustomEditText_libIZO_setStrokeWidth, mStrokeWidth);
-            hideShowIconTint = a.getColor(R.styleable.CustomEditText_libIZO_hideShowPasswordIconTint, DEFAULT_COLOR);
-            clearIconTint = a.getColor(R.styleable.CustomEditText_libIZO_clearIconTint, DEFAULT_COLOR);
-            this.fontName = a.getString(R.styleable.CustomEditText_libIZO_setFont);
-            // set corner radius
-            mCornerRadius = a.getDimension(R.styleable.CustomEditText_libIZO_setCornerRadius, 1);
-            if (isBorderView) {
-                setBackGroundOfLayout(getShapeBackground(mNormalColor));
-                setCursorColor(mNormalColor);
-            } else {
-                padding(false);
-            }
-            if (getInputType() == TYPE_TEXT_VARIATION_PASSWORD || getInputType() == TYPE_NUMBER_VARIATION_PASSWORD) {
-                isPassword = true;
-                this.setMaxLines(1);
-            } else if (getInputType() == EditorInfo.TYPE_CLASS_PHONE) {
-                this.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
-            }
-            if (!isPassword && isClearIconVisible) {
-                handleClearButton();
-            }
-            if (isPassword)
-                if (!TextUtils.isEmpty(getText())) {
-                    showPasswordVisibilityIndicator(true);
-                } else {
-                    showPasswordVisibilityIndicator(false);
-                }
-            setOnTouchListener(new OnTouchListener() {
-                @SuppressLint("ClickableViewAccessibility")
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-                    CustomEditText editText = CustomEditText.this;
-                    if (editText.getCompoundDrawables()[2] == null)
-                        return false;
-                    if (event.getAction() != MotionEvent.ACTION_UP)
-                        return false;
-                    if (isPassword) {
-                        if (event.getX() > editText.getWidth() - editText.getPaddingRight() - drawableEnd.getIntrinsicWidth()) {
-                            togglePasswordVisibility();
-                            event.setAction(MotionEvent.ACTION_CANCEL);
-                        }
-                    } else if (isClearIconVisible) {
-                        if (event.getX() > editText.getWidth() - editText.getPaddingRight() - imgCloseButton.getIntrinsicWidth()) {
-                            editText.setText("");
-                            CustomEditText.this.handleClearButton();
-                        }
-                    }
-                    return false;
-                }
-            });
-            setFont();
-            a.recycle();
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText);
+        imgCloseButton = ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_close_clear_cancel);
+        padding = a.getDimensionPixelSize(R.styleable.CustomEditText_android_padding, -1);
+        paddingLeft = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingLeft, DEFAULT_PADDING);
+        paddingTop = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingTop, DEFAULT_PADDING);
+        paddingRight = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingRight, DEFAULT_PADDING);
+        paddingBottom = a.getDimensionPixelSize(R.styleable.CustomEditText_android_paddingBottom, DEFAULT_PADDING);
+        isClearIconVisible = a.getBoolean(R.styleable.CustomEditText_libIZO_setClearIconVisible, isClearIconVisible);
+        isBorderView = a.getBoolean(R.styleable.CustomEditText_libIZO_setBorderView, isBorderView);
+        int mNormalColor = a.getColor(R.styleable.CustomEditText_libIZO_setBorderColor, DEFAULT_COLOR);
+        mBackgroundColor = a.getColor(R.styleable.CustomEditText_libIZO_setBackgroundColor, Color.TRANSPARENT);
+        mStrokeWidth = a.getDimension(R.styleable.CustomEditText_libIZO_setStrokeWidth, mStrokeWidth);
+        hideShowIconTint = a.getColor(R.styleable.CustomEditText_libIZO_hideShowPasswordIconTint, DEFAULT_COLOR);
+        clearIconTint = a.getColor(R.styleable.CustomEditText_libIZO_clearIconTint, DEFAULT_COLOR);
+        this.fontName = a.getString(R.styleable.CustomEditText_libIZO_setFont);
+        mPrexix = a.getString(R.styleable.CustomEditText_libIZO_prefix);
+        // set corner radius
+        mCornerRadius = a.getDimension(R.styleable.CustomEditText_libIZO_setCornerRadius, 1);
+        if (isBorderView) {
+            setBackGroundOfLayout(getShapeBackground(mNormalColor));
+            setCursorColor(mNormalColor);
+        } else {
+            padding(false);
         }
+        if (getInputType() == TYPE_TEXT_VARIATION_PASSWORD || getInputType() == TYPE_NUMBER_VARIATION_PASSWORD) {
+            isPassword = true;
+            this.setMaxLines(1);
+        } else if (getInputType() == EditorInfo.TYPE_CLASS_PHONE) {
+            this.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+        }
+        if (!isPassword && isClearIconVisible) {
+            handleClearButton();
+        }
+
+        if (mPrexix != null) {
+            calculatePrefix();
+        }
+
+        if (isPassword)
+            if (!TextUtils.isEmpty(getText())) {
+                showPasswordVisibilityIndicator(true);
+            } else {
+                showPasswordVisibilityIndicator(false);
+            }
+        setOnTouchListener(new OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                CustomEditText editText = CustomEditText.this;
+                if (editText.getCompoundDrawables()[2] == null)
+                    return false;
+                if (event.getAction() != MotionEvent.ACTION_UP)
+                    return false;
+                if (isPassword) {
+                    int width = drawableEnd == null ? 0 : drawableEnd.getIntrinsicWidth();
+                    if (event.getX() > editText.getWidth() - editText.getPaddingRight() - width) {
+                        togglePasswordVisibility();
+                        event.setAction(MotionEvent.ACTION_CANCEL);
+                    }
+                } else if (isClearIconVisible) {
+                    int width = imgCloseButton == null ? 0 : imgCloseButton.getIntrinsicWidth();
+                    if (event.getX() > editText.getWidth() - editText.getPaddingRight() - width) {
+                        editText.setText("");
+                        CustomEditText.this.handleClearButton();
+                    }
+                }
+                return false;
+            }
+        });
+        setFont();
+        a.recycle();
     }
 
 
@@ -217,6 +223,10 @@ public class CustomEditText extends android.widget.EditText {
     @SuppressLint("DrawAllocation")
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (mPrexix != null) {
+            String prefix = mPrexix;
+            canvas.drawText(prefix, mOriginalLeftPadding, getLineBounds(0, null), getPaint());
+        }
     }
 
 
@@ -298,4 +308,36 @@ public class CustomEditText extends android.widget.EditText {
         this.fontName = fontName;
         setFont();
     }
+
+    public String getFont() {
+        return this.fontName;
+    }
+
+
+    public void setPrefix(String prefix) {
+        this.mPrexix = prefix;
+        calculatePrefix();
+    }
+
+    public String getPrefix() {
+        return this.mPrexix;
+    }
+
+    private void calculatePrefix() {
+        if (mOriginalLeftPadding == -1) {
+            String prefix = mPrexix;
+            float[] widths = new float[prefix.length()];
+            getPaint().getTextWidths(prefix, widths);
+            float textWidth = 0;
+            for (float w : widths) {
+                textWidth += w;
+            }
+            mOriginalLeftPadding = getCompoundPaddingLeft();
+            setPadding((int) (textWidth + mOriginalLeftPadding),
+                    getPaddingRight(), getPaddingTop(),
+                    getPaddingBottom());
+        }
+    }
+
+
 }

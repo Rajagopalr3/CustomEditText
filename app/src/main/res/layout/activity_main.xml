@@ -21,15 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="First Name"
-            android:inputType="text"
+            android:hint="Enter your mobile number"
+            android:inputType="number"
             android:padding="10dp"
+            android:text="9876543210"
             app:libIZO_clearIconTint="#d4d2d3"
             app:libIZO_setBorderColor="#d4d2d3"
             app:libIZO_setBorderView="true"
             app:libIZO_setClearIconVisible="true"
             app:libIZO_setCornerRadius="3dp"
             app:libIZO_setFont="@string/robotoRegular"
+            app:libIZO_prefix="+91"
             app:libIZO_setStrokeWidth="1dp" />
 
 
