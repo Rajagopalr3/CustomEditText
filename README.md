@@ -7,7 +7,7 @@ A Collection of features are implemented in single edittext view. By adding one 
 3.Font change via xml     
 4.Password visibility icon when inputtype in password mode.      
 5.Change the password toggle color.  
-6.Add country code in prefix (+91)
+6.Add country code in prefix (+91)  
 7.Change prefix textcolor.
     
 the above features are done through xml file.    
@@ -36,7 +36,7 @@ dependencies {
 ```
 # Import as Module
 
-[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.2.aar
+[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.4.aar
 
 # XML
 
