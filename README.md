@@ -6,8 +6,9 @@ A Collection of features are implemented in single edittext view. By adding one 
 2.Clear icon visibility when typing   
 3.Font change via xml     
 4.Password visibility icon when inputtype in password mode.      
-5.Able to change Tint color of icons.  
-6.Able to add country code in prefix (+91)
+5.Change the password toggle color.  
+6.Add country code in prefix (+91)
+7.Change prefix textcolor.
     
 the above features are done through xml file.    
 
@@ -28,7 +29,7 @@ To add CustomEditText into your project, import .aar as module or add through to
 # Gradle Depedencies :
 
 dependencies {
-    implementation 'com.libizo:customedittext:1.0.3'
+    implementation 'com.libizo:customedittext:1.0.4'
 }
 
 
@@ -47,7 +48,8 @@ dependencies {
             android:hint="First Name"
             android:inputType="phone"
             android:text="9876543210"
-            app:libIZO_prefix="+91"
+            app:libIZO_setPrefix="+91"
+            app:libIZO_setPrefixTextColor="#FF4081"
             app:libIZO_clearIconTint="#8f1f15"
             app:libIZO_setBorderColor="#8f1f15"
             app:libIZO_setBorderView="true"
@@ -81,8 +83,8 @@ dependencies {
  | libIZO_setClearIconVisible      | if true clear icon is enabled     |  false in default             |
  | libIZO_clearIconTint            | set clear icon tint color         |  grey color in default        |
  | libIZO_hideShowPasswordIconTint | set password icon tint color      |  grey color in default        |
- | libIZO_prefix                   | set the country code as prefix    |  empty in default             |
-    
+ | libIZO_setPrefix                | set the country code as prefix    |  empty in default             |
+ | libIZO_setPrefixTextColor       | set prefix text color             |  default color                |   
     
  # License
  
