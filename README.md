@@ -18,7 +18,7 @@ the above features are done through xml file.
 
 <a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
-![Screenshot](Screenshot_.png)
+![Screenshot](screenshot_1.png)
 
 
 # Usage
