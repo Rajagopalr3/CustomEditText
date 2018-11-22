@@ -7,6 +7,7 @@ A Collection of features are implemented in single edittext view. By adding one 
 3.Font change via xml     
 4.Password visibility icon when inputtype in password mode.      
 5.Able to change Tint color of icons.  
+6.Able to add country code in prefix (+91)
     
 the above features are done through xml file.    
 
@@ -16,7 +17,7 @@ the above features are done through xml file.
 
 <a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
-![Screenshot](screenshot.png)
+![Screenshot](Screenshot_.png)
 
 
 # Usage
@@ -44,14 +45,15 @@ dependencies {
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="First Name"
-            android:inputType="text"
-            android:text="Raja"
+            android:inputType="phone"
+            android:text="9876543210"
+            app:libIZO_prefix="+91"
             app:libIZO_clearIconTint="#8f1f15"
             app:libIZO_setBorderColor="#8f1f15"
             app:libIZO_setBorderView="true"
             app:libIZO_setClearIconVisible="true"
             app:libIZO_setCornerRadius="4dp"
-            app:libIZO_setStrokeWidth="2dp" />
+            app:libIZO_setStrokeWidth="2dp"/>
 
                       
 ```
@@ -79,6 +81,7 @@ dependencies {
  | libIZO_setClearIconVisible      | if true clear icon is enabled     |  false in default             |
  | libIZO_clearIconTint            | set clear icon tint color         |  grey color in default        |
  | libIZO_hideShowPasswordIconTint | set password icon tint color      |  grey color in default        |
+ | libIZO_prefix                   | set the country code as prefix    |  empty in default             |
     
     
  # License
