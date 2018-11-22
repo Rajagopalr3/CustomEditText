@@ -52,7 +52,8 @@ dependencies {
             app:libIZO_setBorderView="true"
             app:libIZO_setClearIconVisible="true"
             app:libIZO_setCornerRadius="4dp"
-            app:libIZO_setStrokeWidth="2dp" />
+            app:libIZO_setStrokeWidth="2dp"
+            app:libIZO_prefix="+91"/>
 
                       
 ```
@@ -80,6 +81,7 @@ dependencies {
  | libIZO_setClearIconVisible      | if true clear icon is enabled     |  false in default             |
  | libIZO_clearIconTint            | set clear icon tint color         |  grey color in default        |
  | libIZO_hideShowPasswordIconTint | set password icon tint color      |  grey color in default        |
+ | libIZO_prefix                   | set the country code as prefix    |  empty in default             |
     
     
  # License
