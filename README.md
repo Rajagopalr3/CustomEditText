@@ -45,15 +45,15 @@ dependencies {
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="First Name"
-            android:inputType="text"
-            android:text="Raja"
+            android:inputType="phone"
+            android:text="9876543210"
+            app:libIZO_prefix="+91"
             app:libIZO_clearIconTint="#8f1f15"
             app:libIZO_setBorderColor="#8f1f15"
             app:libIZO_setBorderView="true"
             app:libIZO_setClearIconVisible="true"
             app:libIZO_setCornerRadius="4dp"
-            app:libIZO_setStrokeWidth="2dp"
-            app:libIZO_prefix="+91"/>
+            app:libIZO_setStrokeWidth="2dp"/>
 
                       
 ```
