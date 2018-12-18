@@ -21,12 +21,11 @@ the above features are done through xml file.
 ![Screenshot](screenshot_1.png)
 
 
-# Usage
-To add CustomEditText into your project, import .aar as module or add through to gradle. 
+# Implementation    
+
+# Using Gradle:
 
 ```
-
-# Gradle Depedencies :
 
 dependencies {
     implementation 'com.libizo:customedittext:1.0.4'
@@ -35,13 +34,26 @@ dependencies {
 
 ```
 # Import as Module
+Download the below .aar file and add as module into your project
 
 [Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.4.aar
+
+
+```
+
+dependencies {
+     implementation project(':customedittext')
+}
+
+Add this into settings.gradle file:
+include ':customedittext'
+
+```
 
 # XML
 
 ```
- <com.libIZO.CustomEditText
+ <com.libizo.CustomEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
