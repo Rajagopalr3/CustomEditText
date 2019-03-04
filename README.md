@@ -1,13 +1,14 @@
 # CustomEditText
-A Collection of features are implemented in single edittext view. By adding one line code in xml, able to access features like rounded corner, clear icon visibility when typing, password visibility when inputtype is password.
+A Collection of features are wrapped into single UI element. By adding a line code in xml, able to access these features,rectangular view with corner radius, font color etc.
 
 # Features
 1.EditText shape  -> rounded corner with radius and changing BG color, Border color.     
 2.Clear icon visibility when typing   
 3.Font change via xml     
 4.Password visibility icon when inputtype in password mode.      
-5.Able to change Tint color of icons.  
-6.Able to add country code in prefix (+91)
+5.Change the password toggle color.  
+6.Add country code in prefix (+91)  
+7.Change prefix textcolor.
     
 the above features are done through xml file.    
 
@@ -17,37 +18,50 @@ the above features are done through xml file.
 
 <a href='https://bintray.com/rajagopalr3/CustomEditText/customedittext?source=watch' alt='Get automatic notifications about new "customedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
-![Screenshot](Screenshot_.png)
+![Screenshot](screenshot_1.png)
 
 
-# Usage
-To add CustomEditText into your project, import .aar as module or add through to gradle. 
+# Implementation    
+
+# Using Gradle:
 
 ```
 
-# Gradle Depedencies :
-
 dependencies {
-    implementation 'com.libizo:customedittext:1.0.3'
+    implementation 'com.libizo:customedittext:1.0.4'
 }
 
 
 ```
 # Import as Module
+Download the below .aar file and add as module into your project
 
-[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.2.aar
+[Donwload module])https://github.com/Rajagopalr3/CustomEditText/blob/master/customedittext-1.0.4.aar
+
+
+```
+
+dependencies {
+     implementation project(':customedittext')
+}
+
+Add this into settings.gradle file:
+include ':customedittext'
+
+```
 
 # XML
 
 ```
- <com.libIZO.CustomEditText
+ <com.libizo.CustomEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="First Name"
             android:inputType="phone"
             android:text="9876543210"
-            app:libIZO_prefix="+91"
+            app:libIZO_setPrefix="+91"
+            app:libIZO_setPrefixTextColor="#FF4081"
             app:libIZO_clearIconTint="#8f1f15"
             app:libIZO_setBorderColor="#8f1f15"
             app:libIZO_setBorderView="true"
@@ -81,8 +95,8 @@ dependencies {
  | libIZO_setClearIconVisible      | if true clear icon is enabled     |  false in default             |
  | libIZO_clearIconTint            | set clear icon tint color         |  grey color in default        |
  | libIZO_hideShowPasswordIconTint | set password icon tint color      |  grey color in default        |
- | libIZO_prefix                   | set the country code as prefix    |  empty in default             |
-    
+ | libIZO_setPrefix                | set the country code as prefix    |  empty in default             |
+ | libIZO_setPrefixTextColor       | set prefix text color             |  default color                |   
     
  # License
  
