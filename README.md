@@ -28,7 +28,7 @@ the above features are done through xml file.
 ```
 
 dependencies {
-    implementation 'com.libizo:customedittext:1.0.4'
+    implementation 'com.libizo:customedittext:1.0.5'
 }
 
 
