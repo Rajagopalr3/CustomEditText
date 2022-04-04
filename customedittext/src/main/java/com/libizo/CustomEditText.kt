@@ -179,7 +179,9 @@ class CustomEditText : AppCompatEditText {
     } catch (ignored: Exception) {
     }
 
-
+/**
+     * This method is used to set the custom font
+     */
     private fun setFont() {
         if (font != null) {
             try {
@@ -201,7 +203,9 @@ class CustomEditText : AppCompatEditText {
         }
         padding(true)
     }
-
+/**
+     * This method is used to set the padding
+     */
     private fun padding(isRound: Boolean) {
         val extraPadding: Int
         val extraPad: Int
