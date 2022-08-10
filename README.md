@@ -23,7 +23,29 @@ the above features are done through xml file.
 
 # Implementation    
 
-# Using Gradle:
+# Using Jitpack:
+
+[![](https://jitpack.io/v/Rajagopalr3/CustomEditText.svg)](https://jitpack.io/#Rajagopalr3/CustomEditText)
+
+Step 1. Add the JitPack repository to your build file
+
+Add it in your root build.gradle at the end of repositories:
+
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+Step 2. Add the dependency
+
+	dependencies {
+	        implementation 'com.github.Rajagopalr3:CustomEditText:6f095021b5'
+	}
+
+
+
+# Using JCenter(Bintray) - DEPRECATED
 
 ```
 
