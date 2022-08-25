@@ -48,6 +48,14 @@ Step 2. Add the dependency
 # Using JCenter(Bintray) - DEPRECATED
 
 ```
+Add it in your root build.gradle at the end of repositories:
+
+	allprojects {
+		repositories {
+ 			jcenter()
+		}
+	}
+
 
 dependencies {
     implementation 'com.libizo:customedittext:1.0.6'
